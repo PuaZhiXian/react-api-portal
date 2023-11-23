@@ -25,11 +25,23 @@ export default function SignInPage() {
     const type: IType[] = [
         {
             type: 'string',
-            key: 'string',
-            name: 'string',
-            placeholder: 'string'
-        }
+            key: 'email',
+            name: 'email',
+            placeholder: 'Email',
+            regex: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+            errorMessage: 'Please Enter Valid Email'
+        },
+        {
+            type: 'password',
+            key: 'password',
+            name: 'password',
+            placeholder: 'Password',
+            regex: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+            errorMessage: 'Week Password'
+        },
+
     ]
+
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const {name, value} = e.target;
