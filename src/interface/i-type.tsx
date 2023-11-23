@@ -3,6 +3,6 @@ export interface IType {
     key: string,
     name: string,
     placeholder: string,
-    regex: RegExp,
-    errorMessage: string,
+    regex?: RegExp,
+    errorMessage?: string,
 }

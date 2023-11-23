@@ -17,6 +17,18 @@ module.exports = {
             {
                 source: '/sign/sign-in',
                 destination: '/pages/sign',
+            },
+            {
+                source: '/sign/forget',
+                destination: '/pages/sign',
+            },
+            {
+                source: '/sign/sign-up',
+                destination: '/pages/sign',
+            },
+            {
+                source: '/sign/reset',
+                destination: '/pages/sign',
             }
         ]
     },

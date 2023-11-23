@@ -1,27 +1,19 @@
 'use client';
 import {Button} from "@nextui-org/react";
-import React, {useState} from "react";
+import React from "react";
 import Form from "@/components/form";
 import {IType} from "@/interface/i-type";
 import {ILogin} from "@/interface/i-login";
-
-interface FormData {
-    email: string;
-    password: string;
-}
+import {useRouter} from "next/navigation";
+import {RedirectType} from "next/dist/client/components/redirect";
 
 export default function SignInPage() {
 
-    const [formData, setFormData] = useState<ILogin>({
-        email: '',
-        password: ''
-    });
-
-    const formDate = {
+    const router = useRouter()
+    const formDate: ILogin = {
         email: '',
         password: ''
     }
-
     const type: IType[] = [
         {
             type: 'string',
@@ -42,21 +34,11 @@ export default function SignInPage() {
 
     ]
 
-
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const {name, value} = e.target;
-        console.log('changing')
-        setFormData((prevData: FormData) => ({
-            ...prevData,
-            [name]: value,
-        }));
-    };
-
     const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         fetch('https://jsonplaceholder.typicode.com/posts', {
             method: 'POST',
-            body: JSON.stringify(formData),
+            body: JSON.stringify(formDate),
             headers: {
                 'Content-type': 'application/json; charset=UTF-8',
             },
@@ -65,23 +47,15 @@ export default function SignInPage() {
             .then((json) => console.log(json));
     };
 
+    const handleRedirect = (path: string) => {
+        router.replace(path, RedirectType.replace)
+    }
+
     return (
         <div>
             <div className="text-label w-full text-[#8898aa] mb-4 text-center">Sign In</div>
 
-            <Form formData={formData} type={type}/>
-            {/*<form method="POST">
-                <div className="mb-3">
-                    <div className="w-full">
-                        <Input type="email" label="Email" name="Email" value={formData.email}
-                               className="my-5"
-                               onChange={handleChange}/>
-                        <Input type="password" label="Password" name="Password" value={formData.password}
-                               className=""
-                               onChange={handleChange}/>
-                    </div>
-                </div>
-            </form>*/}
+            <Form formData={formDate} type={type}/>
 
             <div className="text-center">
                 <Button color="primary" type={'submit'} onClick={handleSubmit}
@@ -90,13 +64,14 @@ export default function SignInPage() {
                 </Button>
             </div>
 
-            <div className="text-danger flex justify-center cursor-pointer text-xs ">
+            <div className="text-danger flex justify-center cursor-pointer text-xs "
+                 onClick={() => handleRedirect("/sign/forget")}>
                 Forget Password ?
             </div>
 
             <div className="flex justify-center text-xs">
                 <div>New to API Developer Portal?</div>
-                <div className="text-danger cursor-pointer ml-1"> Join Now</div>
+                <div className="text-danger cursor-pointer ml-1" onClick={() => handleRedirect("/sign/sign-up")}> Join Now</div>
             </div>
         </div>
     )
