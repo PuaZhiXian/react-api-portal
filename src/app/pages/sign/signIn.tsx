@@ -44,7 +44,10 @@ export default function SignInPage() {
             },
         })
             .then((response) => response.json())
-            .then((json) => console.log(json));
+            .then((json) => {
+                console.log(json)
+                router.replace('/pages/dashboard', RedirectType.replace)
+            });
     };
 
     const handleRedirect = (path: string) => {
