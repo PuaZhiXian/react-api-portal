@@ -13,7 +13,7 @@ export default function SignPage() {
     return (
         <div className="h-screen bg-primary-900">
             <div className="bg-primary-900">
-                <Header/>
+                <Header isLogin={true}/>
             </div>
             <div className=" bg-primary-900">
                 <div className="container mx-auto">
