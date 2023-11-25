@@ -5,7 +5,7 @@ export default function DashboardPage() {
     return (
         <div className="h-screen">
             <div className="bg-primary-900">
-                <Header isLogin={false}/>
+                <Header isLogin={false} currentActive={'dashboard'}/>
             </div>
             <div className="container md:mx-auto md:px-0 px-[20px]">
                 <div className="lg:text-title text-subtitle font-bold ">Dashboard</div>

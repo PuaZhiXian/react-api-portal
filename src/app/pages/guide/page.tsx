@@ -94,7 +94,7 @@ export default function GuidePage() {
     return (
         <div className="h-screen">
             <div className="bg-primary-900">
-                <Header></Header>
+                <Header currentActive={'guide'} isLogin={false}/>
             </div>
             <div className="container mx-auto xl:px-0 px-[10px] ">
                 <div className="font-bold text-title py-[18px]">Guide</div>
