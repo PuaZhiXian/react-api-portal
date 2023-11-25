@@ -156,7 +156,7 @@ export default function ProjectTable() {
         const end = start + rowsPerPage;
 
         const filteredData = projects.filter(item =>
-            item.project_name.toLowerCase().includes(searchKey.toLowerCase())
+            item.project_name?.toLowerCase().includes(searchKey.toLowerCase())
         );
 
         return filteredData.slice(start, end);
@@ -164,6 +164,7 @@ export default function ProjectTable() {
 
     const openProject = (projectId: number) => {
         console.log('open project ' + projectId)
+        router.replace('/pages/project', RedirectType.replace)
     }
     const createProject = () => {
         router.replace('/pages/subscription', RedirectType.replace)
