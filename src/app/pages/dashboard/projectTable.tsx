@@ -14,9 +14,11 @@ import {Input} from "@nextui-org/input";
 import React, {useState} from "react";
 import {ProjectOverview} from "@/interface/project-overview";
 import {format, parseISO} from 'date-fns';
+import {RedirectType} from "next/dist/client/components/redirect";
+import {useRouter} from "next/navigation";
 
 export default function ProjectTable() {
-
+    const router = useRouter()
     const projects: ProjectOverview[] = [
         {
             id: 1,
@@ -164,6 +166,7 @@ export default function ProjectTable() {
         console.log('open project ' + projectId)
     }
     const createProject = () => {
+        router.replace('/pages/subscription', RedirectType.replace)
         console.log('creating project')
     }
 
