@@ -27,7 +27,7 @@ export default function ProfilePage() {
             <div className="mx-auto container px-[10px] lg:px-0 ">
                 <div className="flex justify-end">
                     <Button
-                        className="rounded mt-[20px]"
+                        className="rounded my-[20px]"
                         color="primary" onClick={() => handleLogout()}>
                         <div className="lg:text-button text-xs">Logout</div>
                     </Button>
