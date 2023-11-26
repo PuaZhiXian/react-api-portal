@@ -69,7 +69,7 @@ export default function ProjectPage() {
                         }
                         {
                             selectingTab === 'statistics' && (
-                                <Statistics/>
+                                <Statistics projectId={projectOverview.id || -1}/>
                             )
                         }
                         {
