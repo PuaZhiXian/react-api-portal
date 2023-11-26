@@ -74,7 +74,8 @@ export default function ProjectPage() {
                         }
                         {
                             selectingTab === 'credentials' && (
-                                <Credential/>
+                                <Credential projectId={projectOverview.id || -1}
+                                            projectName={projectOverview.project_name || ''}/>
                             )
                         }
                         {
