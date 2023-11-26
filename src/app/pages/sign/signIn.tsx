@@ -6,6 +6,7 @@ import {IType} from "@/interface/i-type";
 import {ILogin} from "@/interface/i-login";
 import {useRouter} from "next/navigation";
 import {RedirectType} from "next/dist/client/components/redirect";
+import {login} from "@/service/Authorization/Authorization";
 
 export default function SignInPage() {
 
@@ -34,32 +35,27 @@ export default function SignInPage() {
 
     ]
 
-    const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
-        fetch('https://jsonplaceholder.typicode.com/posts', {
-            method: 'POST',
-            body: JSON.stringify(formDate),
-            headers: {
-                'Content-type': 'application/json; charset=UTF-8',
-            },
-        })
-            .then((response) => response.json())
-            .then((json) => {
-                console.log(json)
-                router.replace('/pages/dashboard', RedirectType.replace)
-            });
+        const result = await login(formDate)
+        if (result.message) {
+            window.alert(result.message);
+            router.replace('/pages/dashboard', RedirectType.replace)
+        } else {
+            console.log(result.error)
+        }
+
     };
 
     const handleRedirect = (path: string) => {
+
         router.replace(path, RedirectType.replace)
     }
 
     return (
         <div>
             <div className="text-label w-full text-[#8898aa] mb-4 text-center">Sign In</div>
-
             <Form formData={formDate} type={type}/>
-
             <div className="text-center">
                 <Button color="primary" type={'submit'} onClick={handleSubmit}
                         className="text-white py-[10px] px-[20px] my-[24px] h-full rounded w-3/4 text-button">
@@ -74,7 +70,9 @@ export default function SignInPage() {
 
             <div className="flex justify-center text-xs">
                 <div>New to API Developer Portal?</div>
-                <div className="text-danger cursor-pointer ml-1" onClick={() => handleRedirect("/sign/sign-up")}> Join Now</div>
+                <div className="text-danger cursor-pointer ml-1" onClick={() => handleRedirect("/sign/sign-up")}> Join
+                    Now
+                </div>
             </div>
         </div>
     )

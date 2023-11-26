@@ -1,9 +1,9 @@
-import {ILogin} from "@/interface/i-login";
 import {IType} from "@/interface/i-type";
 import React from "react";
 import Form from "@/components/form";
 import {Button} from "@nextui-org/react";
 import {IUserDetail} from "@/interface/i-user-detail";
+import {login} from "@/service/Authorization/Authorization";
 
 export default function SignUpPage() {
     const formDate: IUserDetail = {
@@ -29,17 +29,22 @@ export default function SignUpPage() {
 
     ]
 
-    const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
-        fetch('https://jsonplaceholder.typicode.com/posts', {
-            method: 'POST',
-            body: JSON.stringify(formDate),
-            headers: {
-                'Content-type': 'application/json; charset=UTF-8',
-            },
-        })
+        const result = await login(formDate)
             .then((response) => response.json())
             .then((json) => console.log(json));
+
+
+        // fetch('https://jsonplaceholder.typicode.com/posts', {
+        //     method: 'POST',
+        //     body: JSON.stringify(formDate),
+        //     headers: {
+        //         'Content-type': 'application/json; charset=UTF-8',
+        //     },
+        // })
+        //     .then((response) => response.json())
+        //     .then((json) => console.log(json));
     };
 
     return (

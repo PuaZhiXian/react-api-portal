@@ -7,6 +7,7 @@ import Settings from "@/app/pages/project/settings";
 import Statistics from "@/app/pages/project/statistics";
 import Credential from "@/app/pages/project/credential";
 import ApiCollection from "@/app/pages/project/api-collection";
+import Toaster from "react-hot-toast";
 
 export default function ProjectPage() {
 
@@ -39,21 +40,21 @@ export default function ProjectPage() {
                     <div className="col-span-2 button-focus">
                         <div className="w-full">
                             <Button color={selectingTab === 'statistics' ? `primary` : `default`}
-                                    onClick={() => handleChangeTab('statistics')}
+                                    onClick={() => handleChangeTab('statistics')} radius="none"
                                     className='text-xl w-full h-fit border border-black py-2.5'>
                                 Statistics
                             </Button>
                         </div>
                         <div className="w-full">
                             <Button color={selectingTab === 'credentials' ? `primary` : `default`}
-                                    onClick={() => handleChangeTab('credentials')}
+                                    onClick={() => handleChangeTab('credentials')} radius="none"
                                     className='text-xl w-full h-fit border border-black py-2.5'>
                                 Credentials
                             </Button>
                         </div>
                         <div className="w-full">
                             <Button color={selectingTab === 'api' ? `primary` : `default`}
-                                    onClick={() => handleChangeTab('api')}
+                                    onClick={() => handleChangeTab('api')} radius="none"
                                     className='text-xl w-full h-fit border border-black py-2.5'>
                                 Collections
                             </Button>

@@ -4,6 +4,8 @@ import './globals.css'
 
 const inter = Inter({ subsets: ['latin'] })
 import {NextUIProvider} from "@nextui-org/react";
+import React from "react";
+import Toaster from "react-hot-toast";
 
 export const metadata: Metadata = {
   title: 'FYP',
@@ -16,7 +18,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+      {children}
+      </body>
     </html>
   )
 }

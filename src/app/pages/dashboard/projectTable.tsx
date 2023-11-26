@@ -11,137 +11,26 @@ import {
     TableRow
 } from "@nextui-org/react";
 import {Input} from "@nextui-org/input";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {ProjectOverview} from "@/interface/project-overview";
 import {format, parseISO} from 'date-fns';
 import {RedirectType} from "next/dist/client/components/redirect";
 import {useRouter} from "next/navigation";
+import {allProject} from "@/service/project/Project";
 
 export default function ProjectTable() {
     const router = useRouter()
-    const projects: ProjectOverview[] = [
-        {
-            id: 1,
-            project_name: "UmSchedular",
-            description: 'Time table app for Um students',
-            createdAt: "2023-10-24T15:30:00.000Z",
-            token: 'askdkaskdnaksnasjdna@djkansd'
-        },
-        {
-            "id": 2,
-            "project_name": "EduTrack",
-            "description": "Educational tracking system",
-            "createdAt": "2023-11-24T12:00:00.000Z",
-            "token": "kajsdhfkajshdfkjahsdf@asdkjasdf"
-        },
-        {
-            "id": 3,
-            "project_name": "StudyBuddy",
-            "description": "App to find study partners",
-            "createdAt": "2023-11-24T12:15:00.000Z",
-            "token": "asldkfjalksdjflkasdjf@alksdjfalk"
-        },
-        {
-            "id": 4,
-            "project_name": "LearnEase",
-            "description": "Platform for easy learning",
-            "createdAt": "2023-11-24T12:30:00.000Z",
-            "token": "aklsdjflkajsdlkfjasd@asldkfjalk"
-        },
-        {
-            "id": 5,
-            "project_name": "TimeMaster",
-            "description": "Time management app",
-            "createdAt": "2023-11-24T12:45:00.000Z",
-            "token": "asldkfjalksdjflkasdj@alksdjfalk"
-        },
-        {
-            "id": 6,
-            "project_name": "ScholarPlanner",
-            "description": "Planning tool for scholars",
-            "createdAt": "2023-11-24T13:00:00.000Z",
-            "token": "aklsdjflkajsdlkfjasd@asldkfjalk"
-        },
-        {
-            "id": 7,
-            "project_name": "AcademicSync",
-            "description": "Syncing tool for academic data",
-            "createdAt": "2023-11-24T13:15:00.000Z",
-            "token": "asldkfjalksdjflkasdj@alksdjfalk"
-        },
-        {
-            "id": 8,
-            "project_name": "ClassConnect",
-            "description": "Connecting students in classes",
-            "createdAt": "2023-11-24T13:30:00.000Z",
-            "token": "aklsdjflkajsdlkfjasd@asldkfjalk"
-        },
-        {
-            "id": 9,
-            "project_name": "SyllabusSync",
-            "description": "Syncing tool for syllabus",
-            "createdAt": "2023-11-24T13:45:00.000Z",
-            "token": "asldkfjalksdjflkasdj@alksdjfalk"
-        },
-        {
-            "id": 10,
-            "project_name": "StudEase",
-            "description": "Tool for easing student life",
-            "createdAt": "2023-11-24T14:00:00.000Z",
-            "token": "aklsdjflkajsdlkfjasd@asldkfjalk"
-        },
-        {
-            "id": 11,
-            "project_name": "AcademyMate",
-            "description": "Companion app for academics",
-            "createdAt": "2023-11-24T14:15:00.000Z",
-            "token": "asldkfjalksdjflkasdj@alksdjfalk"
-        },
-        {
-            "id": 12,
-            "project_name": "CourseCraft",
-            "description": "Crafting courses efficiently",
-            "createdAt": "2023-11-24T14:30:00.000Z",
-            "token": "aklsdjflkajsdlkfjasd@asldkfjalk"
-        },
-        {
-            "id": 13,
-            "project_name": "StudySync",
-            "description": "Syncing tool for study materials",
-            "createdAt": "2023-11-24T14:45:00.000Z",
-            "token": "asldkfjalksdjflkasdj@alksdjfalk"
-        },
-        {
-            "id": 14,
-            "project_name": "EduPlanner",
-            "description": "Planning tool for education",
-            "createdAt": "2023-11-24T15:00:00.000Z",
-            "token": "aklsdjflkajsdlkfjasd@asldkfjalk"
-        },
-        {
-            "id": 15,
-            "project_name": "ClassMaster",
-            "description": "Mastering classroom activities",
-            "createdAt": "2023-11-24T15:15:00.000Z",
-            "token": "asldkfjalksdjflkasdj@alksdjfalk"
-        },
-        {
-            "id": 16,
-            "project_name": "TimeTablePro",
-            "description": "Professional timetable app",
-            "createdAt": "2023-11-24T15:30:00.000Z",
-            "token": "aklsdjflkajsdlkfjasd@asldkfjalk"
-        },
-        {
-            "id": 17,
-            "project_name": "EduSync",
-            "description": "Syncing tool for educational data",
-            "createdAt": "2023-11-24T15:45:00.000Z",
-            "token": "asldkfjalksdjflkasdj@alksdjfalk"
-        }
-    ]
     const [searchKey, setSearchKey] = useState('');
+    const [projects, setProject] = useState<ProjectOverview[]>([]);
 
+    useEffect(() => {
+        initializeVariable()
+    }, []);
+
+    const initializeVariable = async () => {
+        const data = await allProject();
+        setProject(data);
+    };
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSearchKey(e.target.value);
     };
@@ -163,7 +52,6 @@ export default function ProjectTable() {
     }, [page, projects]);
 
     const openProject = (projectId: number) => {
-        console.log('open project ' + projectId)
         router.replace('/pages/project', RedirectType.replace)
     }
     const createProject = () => {
@@ -231,10 +119,13 @@ export default function ProjectTable() {
                                 {(columnKey) =>
                                     <TableCell>
                                         {
-                                            columnKey !== 'created_at' && getKeyValue(item, columnKey)
+                                            columnKey !== 'created_at' && columnKey !== 'token' && getKeyValue(item, columnKey)
                                         }
                                         {
                                             columnKey == 'created_at' && timeToString(item.createdAt)
+                                        }
+                                        {
+                                            columnKey == 'token' && <p>********</p>
                                         }
                                     </TableCell>}
                             </TableRow>
